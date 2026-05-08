@@ -1,0 +1,1260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMSC320 2026 Data Science Pipeline Project</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      color: #121212;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 90px 20px 60px;
+      border-bottom: 1px solid #e8e8e8;
+      background: linear-gradient(to bottom, #fafafa, #ffffff);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-weight: 600;
+    }
+
+    header p {
+      max-width: 700px;
+      margin-top: 12px;
+      color: #3d3d3d;
+    }
+
+    nav {
+      padding: 14px 20px;
+      border-bottom: 1px solid #ddd;
+      position: sticky;
+      top: 0;
+      background: #ffffff;
+    }
+
+    nav a {
+      margin-right: 18px;
+      text-decoration: none;
+      color: #222;
+      font-size: 0.95rem;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+      color: #000;
+    }
+
+    main {
+      max-width: 950px;
+      margin: 0 auto;
+      padding: 60px 20px 100px;
+    }
+
+    section {
+      margin-bottom: 80px;
+      background: #fff;
+      padding: 34px;
+      border: 1px solid #ececec;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      color: #111;
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e5e5e5;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin-top: 28px;
+      margin-bottom: 10px;
+    }
+
+    .project-meta {
+      margin-top: 30px;
+    }
+
+    .meta-card {
+      margin-bottom: 14px;
+      color: #444;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th,
+    td {
+      text-align: left;
+      padding: 12px;
+      border-bottom: 1px solid #e5e5e5;
+      vertical-align: top;
+      font-size: 0.95rem;
+    }
+
+    th {
+      font-weight: 600;
+    }
+
+    .callout {
+      border-left: 3px solid #222;
+      padding-left: 14px;
+      margin: 20px 0;
+      color: #444;
+    }
+
+    .code-block {
+      background: #f8f8f8;
+      border: 1px solid #e3e3e3;
+      border-radius: 12px;
+      padding: 18px;
+      overflow-x: auto;
+      white-space: pre;
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin-top: 18px;
+      line-height: 1.5;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .mini-card {
+      border: 1px solid #ddd;
+      padding: 16px;
+    }
+
+    .image-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .image-card {
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .chart-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #fff;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .notebook-output-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      background: #242729;
+      border-bottom: 1px solid #e5e5e5;
+    }
+
+    .image-caption {
+      padding: 16px;
+    }
+
+    .image-caption h4 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .dataframe-preview {
+      margin-top: 24px;
+      overflow-x: auto;
+      border: 1px solid #3a3a3a;
+      background: #242729;
+    }
+
+    .dataframe-preview table {
+      min-width: 780px;
+      margin: 0;
+      border-collapse: collapse;
+      color: #eeeeee;
+      font-family: "Courier New", monospace;
+      font-size: 1.1rem;
+      line-height: 1.2;
+    }
+
+    .dataframe-preview th,
+    .dataframe-preview td {
+      padding: 16px 18px;
+      border-bottom: 0;
+      border-right: 1px solid rgba(0, 0, 0, 0.12);
+      font-size: inherit;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+
+    .dataframe-preview th {
+      background: #242729;
+      font-weight: 700;
+      text-align: right;
+      font-size: 1.25rem;
+    }
+
+    .dataframe-preview th:first-child,
+    .dataframe-preview td:first-child {
+      width: 52px;
+      padding-left: 12px;
+      padding-right: 12px;
+      text-align: right;
+      font-weight: 700;
+    }
+
+    .dataframe-preview th:nth-child(2),
+    .dataframe-preview td:nth-child(2) {
+      text-align: left;
+    }
+
+    .dataframe-preview td {
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .dataframe-preview tbody tr:nth-child(odd) {
+      background: #4a4a4a;
+    }
+
+    .dataframe-preview tbody tr:nth-child(even) {
+      background: #242729;
+    }
+
+    .dataframe-title {
+      padding: 10px 14px 0;
+      color: #eeeeee;
+      background: #242729;
+      font-family: "Courier New", monospace;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .notebook-text-output {
+      margin-top: 24px;
+      padding: 16px;
+      overflow-x: auto;
+      background: #242729;
+      color: #eeeeee;
+      border: 1px solid #3a3a3a;
+      font-family: "Courier New", monospace;
+      font-size: 1rem;
+      line-height: 1.35;
+      white-space: pre;
+    }
+
+    .section-note {
+      margin-top: 18px;
+      padding: 12px 14px;
+      background: #f7f7f7;
+      border: 1px solid #e3e3e3;
+      border-radius: 8px;
+      color: #4f6f52;
+      font-family: monospace;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .section-note::before {
+      content: "# ";
+      color: #2f6f3e;
+      font-weight: 700;
+    }
+
+    footer {
+      border-top: 1px solid #eee;
+      padding: 30px 20px;
+      text-align: center;
+      color: #4b4b4b;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 700px) {
+      header h1 {
+        font-size: 2rem;
+      }
+
+      nav a {
+        display: inline-block;
+        margin-bottom: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    
+      
+    <h1>CMSC320 2026 Data Science Pipeline Project</h1>
+    <p>A project exploring whether Spotify listener trends can help identify artists that may continue growing in popularity over time.</p>
+
+    <div class="project-meta">
+      <div class="meta-card">
+        <strong>Project Topic</strong>
+        Spotify artist growth prediction
+      </div>
+      <div class="meta-card">
+        <strong>Dataset</strong>
+        Spotify Top Artists by Monthly Listeners
+      </div>
+      <div class="meta-card">
+        <strong>Primary Question</strong>
+        Which artists should a record label consider signing based on listener momentum and growth potential?
+      </div>
+    </div>
+  </header>
+
+  <nav>
+    <a href="#contributions">Contributions</a>
+    <a href="#introduction">Introduction</a>
+    <a href="#data-curation">Data Curation</a>
+    <a href="#eda">Exploratory Analysis</a>
+    <a href="#primary-analysis">Primary Analysis</a>
+    <a href="#visualization">Visualization</a>
+    <a href="#conclusion">Conclusion</a>
+  </nav>
+
+  <main>
+    <section id="contributions">
+      <h2>Header and Contributions</h2>
+      <h3>Title</h3>
+      <p><strong>CMSC320 2026 Data Science Pipeline Project</strong></p>
+
+      <h3>Team Members</h3>
+      <p>Cindy Pham, Akash Pandya, Sulagna Dash, Zahra Siddique, Daniel Samuel, and Bindumadhav Juluri</p>
+
+      <h3>Contributions</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Member</th>
+            
+            <th>Contribution Summary</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Cindy Pham</td>
+            
+            <td>Created the plots that explained the results and insights of the primary analysis leading to the conclusion.</td>
+          </tr>
+          <tr>
+            <td>Akash Pandya</td>
+            
+            <td>Chose to work with a Sequential Neural Network and further developed, trained, and tested it to generate usable output. Further aided in data exploration by conducting the hypothesis test to determine whether positive Daily Trends were unique to only top artists.</td>
+          </tr>
+          <tr>
+            <td>Sulagna Dash</td>
+            
+            <td>Created some plots that explained the results and insights of the primary analysis leading to the conclusion.</td>
+          </tr>
+          <tr>
+            <td>Zahra Siddique</td>
+            
+            <td>Explained the data source and transformed the dataset using Python and Pandas into a structured dataframe to prepare the data for analysis.</td>
+          </tr>
+          <tr>
+            <td>Daniel Samuel</td>
+            
+            <td>Created additional plots for the checkpoint 2 deliverable to help guide thinking and create insights geared toward the machine learning and data analysis section.</td>
+          </tr>
+          <tr>
+            <td>Bindumadhav Juluri</td>
+            
+            <td>Bindumadhav Juluri came up with the project idea of predicting artist ranking and growth. He formulated questions/objectives to be used in later sections. Bindumadhav also formulated an introduction that describes the scenario and how our project addresses it with a machine learning solution.</td>
+          </tr>
+        </tbody>
+      </table>
+
+      
+    </section>
+
+    <section id="introduction">
+      <h2>Introduction</h2>
+      <p>The music industry has been well established for decades. However, the industry continues to innovate and change each year. We see this with certain genres becoming more popular and breakout artists reaching new heights of popularity.</p>
+
+      <p>Record labels are always trying to sign their next big artist in order to capitalize on the latest trends. The problem is that it is not easy to predict which artists are worth investing in. There are several risks involved, so labels are constantly looking for ways to make the process more efficient and data-driven.</p>
+
+      <p>For this project, we decided to train a machine learning model using Spotify listener data to predict and rank which upcoming artists have the highest potential for future growth and sustained engagement. This type of analysis allows record labels to make more informed decisions about which artists may be worth signing.</p>
+
+      <p>Below is a walkthrough of the complete data science and machine learning pipeline we used to clean the data, explore trends, train our model, and evaluate the final results.</p>
+    </section>
+
+    <section id="data-curation">
+      <h2>Data Curation</h2>
+      <p>The dataset used in this project is the <strong>Spotify Top Artists by Monthly Listeners</strong> dataset from Kaggle. It contains artist-level Spotify popularity data, including current listeners, daily trend, current rank, peak rank, and peak listeners.</p>
+
+      <p>Dataset source: <a href="https://www.kaggle.com/datasets/meeratif/spotify-top-artists-by-monthly-listeners" target="_blank">Kaggle: Spotify Top Artists by Monthly Listeners</a></p>
+
+      <div class="callout">
+        <strong>Main columns:</strong> Artist, Listeners, Daily Trend, Current Rank, Peak, and PkListeners.
+      </div>
+
+      <h3>Cleaning and Preprocessing Steps</h3>
+      <p>Before analysis, the dataset required cleaning. Several columns were stored as strings because they included commas and plus signs, so those characters had to be removed before converting the values into numbers. We also removed duplicates, missing values, and invalid sentinel entries that clearly did not represent real listener counts. Once the dataset was cleaned, it was sorted by current rank so the artists were straightforward to compare.</p>
+
+      <div class="section-note">
+        The code below loads the dataset, cleans the numeric columns, removes invalid rows, and adds the Top 100 artist flag before displaying the dataframe head.
+      </div>
+
+      <div class="code-block">
+        
+import pandas as pd
+import numpy as np
+
+df = pd.read_csv("messy_listeners.csv")
+
+df = df.drop_duplicates()
+
+cols = ["Listeners", "Daily Trend", "PkListeners"]
+
+for c in cols:
+    df[c] = df[c].astype(str)
+    df[c] = df[c].str.replace(",", "")
+    df[c] = df[c].str.replace("+", "")
+    df[c] = pd.to_numeric(df[c], errors="coerce")
+
+for c in cols:
+    df.loc[df[c] == 9999999999, c] = np.nan
+
+df = df.dropna()
+df = df.drop_duplicates()
+
+df = df.sort_values("Current Rank")
+
+df["Top100Artists"] = df["Current Rank"] <= 100
+
+print(df.head())</div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <div class="dataframe-preview" aria-label="Initial dataframe head output">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Artist</th>
+                  <th>Listeners</th>
+                  <th>Daily Trend</th>
+                  <th>Current Rank</th>
+                  <th>PkListeners</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>0</td>
+                  <td>The Weeknd</td>
+                  <td>107,592,328</td>
+                  <td>-138,880</td>
+                  <td>1</td>
+                  <td>113,034,886</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>Taylor Swift</td>
+                  <td>101,003,302</td>
+                  <td>+889</td>
+                  <td>2</td>
+                  <td>101,003,302</td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Ed Sheeran</td>
+                  <td>76,475,126</td>
+                  <td>-68,137</td>
+                  <td>2</td>
+                  <td>87,934,910</td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Dua Lipa</td>
+                  <td>76,421,916</td>
+                  <td>-71,356</td>
+                  <td>4</td>
+                  <td>77,778,397</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>Bad Bunny</td>
+                  <td>76,162,057</td>
+                  <td>-199,052</td>
+                  <td>3</td>
+                  <td>83,950,570</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="image-caption">
+            <h4>Initial Dataset Preview</h4>
+            <p>The initial dataframe head shows the first five artists after loading and sorting the Spotify listener dataset.</p>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <img
+            class="notebook-output-image"
+            src="images/CleanedDataframeHead.png"
+            alt="Cleaned dataframe head showing artist, listeners, daily trend, current rank, peak listeners, and Top100Artists columns"
+          />
+          <div class="image-caption">
+            <h4>Cleaned Dataset Preview</h4>
+            <p>This dataframe head shows the cleaned numeric columns and the added Top100Artists flag used later in the analysis.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="eda">
+      <h2>Exploratory Data Analysis</h2>
+      <p>The exploratory analysis focused on understanding how artist popularity relates to listener growth. We started by checking summary statistics, listener distributions, and outliers so that the later modeling steps would be grounded in the actual shape of the data. After that, we compared daily listener trends across artist groups and rankings.</p>
+
+      <h3>Summary Statistics</h3>
+      <p>Before answering the main questions, we used summary statistics to understand the spread of listener counts, daily trends, current ranks, and peak listener counts in the cleaned dataset. The cleaned dataset contains 1,817 artists. Listener counts range from about 4.27 million to 107.59 million, while daily trend ranges from a loss of 440,555 listeners to a gain of 743,072 listeners.</p>
+
+      <div class="code-block">summary_cols = [
+    "Listeners",
+    "Daily Trend",
+    "Current Rank",
+    "PkListeners"
+]
+
+print(df[summary_cols].describe())</div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <img
+            class="notebook-output-image"
+            src="images/SummaryStatistics.png"
+            alt="Summary statistics table for listeners, daily trend, current rank, and peak listeners"
+          />
+          <div class="image-caption">
+            <h4>Summary Statistics</h4>
+            <p>The summary statistics give a quick overview of listener counts, daily trend values, current ranks, and peak listener counts across the cleaned dataset.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Listener Distribution and Outliers</h3>
+      <p>The listener-count distribution is important for the data science pipeline because very large artists can dominate raw listener totals. The histogram shows that most artists are concentrated below roughly 25 million listeners, while the boxplot highlights many high-listener outliers above the upper whisker. This supported using normalized features later, such as momentum and trend rate, instead of relying only on total listener size.</p>
+
+      <div class="section-note">
+        This code converts listener counts into millions, then uses a histogram and boxplot to show the overall distribution and outliers.
+      </div>
+
+      <div class="code-block">listeners_millions = df["Listeners"] / 1000000
+
+plt.figure()
+plt.hist(listeners_millions)
+plt.xlabel("Listeners in Millions")
+plt.ylabel("Frequency")
+plt.title("Distribution of Listeners")
+plt.show()
+
+plt.figure()
+plt.boxplot(listeners_millions)
+plt.ylabel("Listeners in Millions")
+plt.title("Distribution of Listeners")
+plt.show()</div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <img
+            class="chart-image"
+            src="images/DistributionOfListenersHistogram.png"
+            alt="Histogram showing the distribution of Spotify monthly listeners in millions"
+          />
+          <div class="image-caption">
+            <h4>Distribution of Listeners</h4>
+            <p>Most artists are clustered at lower listener totals, showing that the dataset is strongly right-skewed.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <img
+            class="chart-image"
+            src="images/DistributionOfListenersBoxplot.png"
+            alt="Boxplot showing listener-count spread and high-listener outliers"
+          />
+          <div class="image-caption">
+            <h4>Listener Count Outliers</h4>
+            <p>The boxplot makes the high-listener outliers clear, which helps explain why normalized growth metrics are needed in later analysis.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Question 1: Top 100 vs Non-Top 100 Daily Trend</h3>
+      <p>We tested whether Top 100 artists had a significantly different mean daily trend from non-Top 100 artists. The p-value was greater than 0.05, so we failed to reject the null hypothesis. This means that being in the Top 100 does not necessarily mean an artist has a significantly higher daily trend.</p>
+
+      <div class="section-note">
+        This code compares listener growth between Top 100 and non-Top 100 artists, then creates the matching boxplot and t-test output.
+      </div>
+
+      <div class="code-block">from scipy import stats
+import matplotlib.pyplot as plt
+
+top_artists_trend = df.loc[df["Top100Artists"], "Daily Trend"]
+other_artists_trend = df.loc[~df["Top100Artists"], "Daily Trend"]
+
+# compare trends between top artists and everyone else
+stat, p = stats.ttest_ind(
+    top_artists_trend,
+    other_artists_trend,
+    equal_var=False
+)
+
+plt.boxplot([
+    top_artists_trend,
+    other_artists_trend
+])
+
+plt.xticks([1, 2], ["Top 100", "Others"])
+plt.ylabel("Daily Trend")
+plt.title("Daily Trend Comparison")
+plt.show()
+
+print("Mean Daily Trend (Top 100):", top_artists_trend.mean())
+print("Mean Daily Trend (Not Top 100):", other_artists_trend.mean())
+print("Difference (Top - Not):", top_artists_trend.mean() - other_artists_trend.mean())
+print("t-statistic:", stat)
+print("p-value:", p)</div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <img
+            class="chart-image"
+            src="images/DailyTrendDistArtistGroup.png"
+            alt="Boxplot showing the daily trend distribution for Top 100 and non-Top 100 artist groups"
+          />
+          <div class="image-caption">
+            <h4>Daily Trend Distribution by Artist Group</h4>
+            <p>The boxplot compares Top 100 artists with artists outside the Top 100 and shows that both groups include a wide range of positive and negative daily trend values.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <img
+            class="notebook-output-image"
+            src="images/HypothesisTestResults.png"
+            alt="Hypothesis test output showing mean daily trend, difference, t-statistic, and p-value"
+          />
+          <div class="image-caption">
+            <h4>Hypothesis Test Results</h4>
+            <p>The t-test output shows a p-value of 0.104537, so the difference in mean daily trend was not statistically significant at the 0.05 level.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Question 2: Momentum vs Artist Size</h3>
+      <p>For the second question, we examined whether artist size impacts momentum. Momentum was calculated by dividing Daily Trend by total listeners. This normalized growth and made artists of different sizes more comparable.</p>
+
+      <div class="section-note">
+        This code calculates momentum and creates the matching scatterplot showing how normalized daily growth changes with artist size.
+      </div>
+
+      <div class="code-block">df["Momentum"] = df["Daily Trend"] / df["Listeners"]
+
+plt.figure()
+plt.scatter(df["Listeners"] // 1000000, df["Momentum"])
+
+plt.xlabel("Listeners in Millions")
+plt.ylabel("Momentum")
+plt.title("Momentum vs Artist Size")
+plt.axhline(0)
+plt.show()</div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <img
+            class="chart-image"
+            src="images/MomentumversusArtistSize.png"
+            alt="Scatter plot of artist momentum against listeners in millions"
+          />
+          <div class="image-caption">
+            <h4>Momentum vs Artist Size</h4>
+            <p>The scatterplot shows that smaller artists tend to have more variation in momentum, while larger artists cluster closer to zero after daily trend is normalized by listener count.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Question 3: Average Daily Trend by Current Rank</h3>
+      <p>The third question focused on how daily trend changes across the current Top 100 artist rankings. We grouped artists by rank and compared the average daily trend at each position.</p>
+
+      <div class="section-note">
+        This code groups the Top 100 artists by current rank and creates the matching bar chart of average daily trend by rank.
+      </div>
+
+      <div class="code-block">top100_trend = df[df["Current Rank"] <= 100]
+
+top100_trend = top100_trend.groupby(
+    "Current Rank"
+)["Daily Trend"].mean().reset_index()
+
+plt.figure(figsize=(14, 5))
+
+plt.bar(
+    top100_trend["Current Rank"],
+    top100_trend["Daily Trend"]
+)
+
+plt.xlabel("Current Rank")
+plt.ylabel("Average Daily Trend")
+plt.title("Average Daily Trend by Current Rank")
+plt.axhline(0, color="red", linestyle="--")
+plt.show()</div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <img
+            class="chart-image"
+            src="images/AverageDailyTrendByCurrentRank.png"
+            alt="Bar chart showing average daily trend by current rank among the Top 100 artists"
+          />
+          <div class="image-caption">
+            <h4>Average Daily Trend by Current Rank</h4>
+            <p>The bar chart shows that daily trend fluctuates across the Top 100 rankings, with several ranks gaining listeners while others are losing listeners relative to the zero baseline.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="primary-analysis">
+      <h2>Primary Analysis</h2>
+      <p>After exploring the data, it became clear that current popularity alone did not fully explain which artists were gaining momentum. Because of that, we used a supervised machine learning model to classify whether an artist could be considered “on the rise.”</p>
+
+      <p>The project engineered three important features: <strong>Trend_Rate</strong>, which measures daily growth relative to current listeners; <strong>Listener_Gap</strong>, which measures the gap between peak listeners and current listeners; and <strong>OnTheRise</strong>, the target variable that marks artists with positive daily trend, above-median trend rate, and room to grow.</p>
+
+      <div class="section-note">
+        This code creates the model features, trains the neural network, and prints the model accuracy.
+      </div>
+
+      <div class="code-block">from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+
+df["Trend_Rate"] = df["Daily Trend"] / df["Listeners"]
+df["Listener_Gap"] = df["PkListeners"] - df["Listeners"]
+
+# label artists that seem to be gaining momentum
+
+df["OnTheRise"] = (
+    (df["Daily Trend"] > 0)
+    & (df["Trend_Rate"] > df["Trend_Rate"].median())
+    & (df["Listener_Gap"] > 0)
+).astype(int)
+
+feature_cols = [
+    "Listeners",
+    "Daily Trend",
+    "Current Rank",
+    "PkListeners",
+    "Trend_Rate",
+    "Listener_Gap"
+]
+
+X = df[feature_cols]
+y = df["OnTheRise"]
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+model = Sequential()
+model.add(Dense(32, activation="relu"))
+model.add(Dense(16, activation="relu"))
+model.add(Dense(1, activation="sigmoid"))
+
+model.compile(
+    optimizer="adam",
+    loss="binary_crossentropy",
+    metrics=["accuracy"]
+)
+
+model.fit(
+    X_train,
+    y_train,
+    epochs=25,
+    batch_size=32,
+    verbose=1
+)
+
+predictions = model.predict(X_test)
+predictions = (predictions > 0.5).astype(int)
+
+print("Accuracy:", accuracy_score(y_test, predictions))</div>
+
+      <div class="image-grid">
+        <div class="image-card">
+          <img
+            class="notebook-output-image"
+            src="images/NeuralNetworkTraining.png"
+            alt="Neural network training output showing epoch accuracy, loss, validation accuracy, and validation loss"
+          />
+          <div class="image-caption">
+            <h4>Neural Network Training</h4>
+            <p>The epoch output shows the neural network improving over training as loss decreases and validation accuracy increases.</p>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <div class="notebook-text-output">Accuracy: 0.9368131868131868
+
+Confusion Matrix:
+[[241   7]
+ [ 16 100]]
+
+Classification Report:
+              precision    recall  f1-score   support
+
+           0       0.94      0.97      0.95       248
+           1       0.93      0.86      0.90       116
+
+    accuracy                           0.94       364
+   macro avg       0.94      0.92      0.93       364
+weighted avg       0.94      0.94      0.94       364</div>
+          <div class="image-caption">
+            <h4>Model Accuracy</h4>
+            <p>The model reached about 93.7% accuracy on the test set, with strong precision and recall across both classes.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>Ranking Artists by Rise Probability</h3>
+      <p>After training the model, each artist was assigned a rise probability. Artists outside the Top 100 with a positive daily trend and a positive listener gap were ranked as possible signing candidates.</p>
+
+      <div class="section-note">
+        This code scores every artist with the trained model, sorts artists by rise probability, and filters the top signing candidates.
+      </div>
+
+      <div class="code-block">df_scaled = scaler.transform(df[feature_cols])
+df["Rise_Probability"] = model.predict(df_scaled)
+
+rising = df.sort_values(
+    by="Rise_Probability",
+    ascending=False
+)
+
+print(rising[[
+    "Artist",
+    "Listeners",
+    "Daily Trend",
+    "Current Rank",
+    "PkListeners",
+    "Rise_Probability"
+]].head(20))
+
+# final filtered artists
+
+top_5_df = df[
+    (df["Top100Artists"] == False) &
+    (df["Daily Trend"] > 0) &
+    (df["Listener_Gap"] > 0)
+].sort_values(
+    by="Rise_Probability",
+    ascending=False
+)
+
+print(top_5_df[[
+    "Artist",
+    "Listeners",
+    "Daily Trend",
+    "Current Rank",
+    "PkListeners",
+    "Rise_Probability"
+]].head())</div>
+
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="image-card">
+          <div class="dataframe-preview" aria-label="Highest rise probability artists neural network output">
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Artist</th>
+                  <th>Listeners</th>
+                  <th>Daily Trend</th>
+                  <th>Current Rank</th>
+                  <th>PkListeners</th>
+                  <th>Rise_Probability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>145</td>
+                  <td>RAYE</td>
+                  <td>27913578.0</td>
+                  <td>300641.0</td>
+                  <td>70</td>
+                  <td>36484906</td>
+                  <td>1.000000</td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Miley Cyrus</td>
+                  <td>71277599.0</td>
+                  <td>71089.0</td>
+                  <td>2</td>
+                  <td>84140935</td>
+                  <td>1.000000</td>
+                </tr>
+                <tr>
+                  <td>716</td>
+                  <td>Dove Cameron</td>
+                  <td>11178406.0</td>
+                  <td>504512.0</td>
+                  <td>367</td>
+                  <td>15363797</td>
+                  <td>1.000000</td>
+                </tr>
+                <tr>
+                  <td>174</td>
+                  <td>d4vd</td>
+                  <td>25720715.0</td>
+                  <td>118176.0</td>
+                  <td>94</td>
+                  <td>31836766</td>
+                  <td>0.999997</td>
+                </tr>
+                <tr>
+                  <td>254</td>
+                  <td>MÃ¥neskin</td>
+                  <td>22017529.0</td>
+                  <td>207670.0</td>
+                  <td>134</td>
+                  <td>26818201</td>
+                  <td>0.999995</td>
+                </tr>
+                <tr>
+                  <td>639</td>
+                  <td>Kumaar</td>
+                  <td>11797376.0</td>
+                  <td>55927.0</td>
+                  <td>316</td>
+                  <td>16746132</td>
+                  <td>0.999987</td>
+                </tr>
+                <tr>
+                  <td>135</td>
+                  <td>Labrinth</td>
+                  <td>29013808.0</td>
+                  <td>27513.0</td>
+                  <td>67</td>
+                  <td>36829106</td>
+                  <td>0.999984</td>
+                </tr>
+                <tr>
+                  <td>31</td>
+                  <td>21 Savage</td>
+                  <td>55901908.0</td>
+                  <td>86564.0</td>
+                  <td>19</td>
+                  <td>61319583</td>
+                  <td>0.999959</td>
+                </tr>
+                <tr>
+                  <td>287</td>
+                  <td>NLE Choppa</td>
+                  <td>20234883.0</td>
+                  <td>54949.0</td>
+                  <td>181</td>
+                  <td>24991591</td>
+                  <td>0.999952</td>
+                </tr>
+                <tr>
+                  <td>141</td>
+                  <td>Kodak Black</td>
+                  <td>28193190.0</td>
+                  <td>27872.0</td>
+                  <td>99</td>
+                  <td>33708388</td>
+                  <td>0.999928</td>
+                </tr>
+                <tr>
+                  <td>181</td>
+                  <td>PinkPantheress</td>
+                  <td>25151265.0</td>
+                  <td>20568.0</td>
+                  <td>60</td>
+                  <td>39844680</td>
+                  <td>0.999912</td>
+                </tr>
+                <tr>
+                  <td>1651</td>
+                  <td>Sukriti Kakar</td>
+                  <td>6033425.0</td>
+                  <td>26450.0</td>
+                  <td>741</td>
+                  <td>9579447</td>
+                  <td>0.999815</td>
+                </tr>
+                <tr>
+                  <td>1477</td>
+                  <td>Tony Aguirre</td>
+                  <td>6605280.0</td>
+                  <td>22133.0</td>
+                  <td>737</td>
+                  <td>10073179</td>
+                  <td>0.999774</td>
+                </tr>
+                <tr>
+                  <td>1676</td>
+                  <td>ThxSoMch</td>
+                  <td>5958414.0</td>
+                  <td>30674.0</td>
+                  <td>783</td>
+                  <td>9386209</td>
+                  <td>0.999772</td>
+                </tr>
+                <tr>
+                  <td>619</td>
+                  <td>Dalex</td>
+                  <td>12120281.0</td>
+                  <td>15014.0</td>
+                  <td>355</td>
+                  <td>15759825</td>
+                  <td>0.999709</td>
+                </tr>
+                <tr>
+                  <td>1119</td>
+                  <td>Omar Apollo</td>
+                  <td>8084417.0</td>
+                  <td>29283.0</td>
+                  <td>592</td>
+                  <td>11377789</td>
+                  <td>0.999686</td>
+                </tr>
+                <tr>
+                  <td>1555</td>
+                  <td>Aitch</td>
+                  <td>6345876.0</td>
+                  <td>37274.0</td>
+                  <td>773</td>
+                  <td>9426643</td>
+                  <td>0.999590</td>
+                </tr>
+                <tr>
+                  <td>726</td>
+                  <td>Amit Trivedi</td>
+                  <td>11134514.0</td>
+                  <td>7880.0</td>
+                  <td>384</td>
+                  <td>14989573</td>
+                  <td>0.999261</td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Justin Bieber</td>
+                  <td>72623228.0</td>
+                  <td>34540.0</td>
+                  <td>6</td>
+                  <td>75467229</td>
+                  <td>0.999157</td>
+                </tr>
+                <tr>
+                  <td>24</td>
+                  <td>Imagine Dragons</td>
+                  <td>58675255.0</td>
+                  <td>139463.0</td>
+                  <td>18</td>
+                  <td>61624656</td>
+                  <td>0.999098</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="image-caption">
+            <h4>Highest Rise Probability Artists</h4>
+            <p>This output lists the top 20 artists after sorting every artist by the neural network's predicted rise probability.</p>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <div class="dataframe-preview" aria-label="Top five artists to sign neural network output">
+            <div class="dataframe-title">Top 5 Artists to Sign:</div>
+            <table>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Artist</th>
+                  <th>Listeners</th>
+                  <th>Daily Trend</th>
+                  <th>Current Rank</th>
+                  <th>PkListeners</th>
+                  <th>Rise_Probability</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>716</td>
+                  <td>Dove Cameron</td>
+                  <td>11178406.0</td>
+                  <td>504512.0</td>
+                  <td>367</td>
+                  <td>15363797</td>
+                  <td>1.000000</td>
+                </tr>
+                <tr>
+                  <td>254</td>
+                  <td>MÃ¥neskin</td>
+                  <td>22017529.0</td>
+                  <td>207670.0</td>
+                  <td>134</td>
+                  <td>26818201</td>
+                  <td>0.999995</td>
+                </tr>
+                <tr>
+                  <td>639</td>
+                  <td>Kumaar</td>
+                  <td>11797376.0</td>
+                  <td>55927.0</td>
+                  <td>316</td>
+                  <td>16746132</td>
+                  <td>0.999987</td>
+                </tr>
+                <tr>
+                  <td>287</td>
+                  <td>NLE Choppa</td>
+                  <td>20234883.0</td>
+                  <td>54949.0</td>
+                  <td>181</td>
+                  <td>24991591</td>
+                  <td>0.999952</td>
+                </tr>
+                <tr>
+                  <td>1651</td>
+                  <td>Sukriti Kakar</td>
+                  <td>6033425.0</td>
+                  <td>26450.0</td>
+                  <td>741</td>
+                  <td>9579447</td>
+                  <td>0.999815</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="image-caption">
+            <h4>Top 5 Artists to Sign</h4>
+            <p>The neural network ranked these artists highest after filtering for artists outside the Top 100 with positive daily trend and room to grow.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="visualization">
+      <h2>Visualization</h2>
+      <p>Visualizations were used to explain both the exploratory analysis and the model results. The model ranking can be visualized with a dot plot showing the highest-probability artist candidates, while the confusion matrix summarizes classification performance.</p>
+
+      <div class="section-note">
+        This code creates the final dot plot used to summarize the top artist candidates by predicted rise probability.
+      </div>
+
+      <div class="code-block">import matplotlib.pyplot as plt
+
+artists = top_5_df.head(25)
+
+fig, ax = plt.subplots(figsize=(10, 10))
+
+ax.plot(
+    artists["Rise_Probability"],
+    artists["Artist"],
+    'o',
+    markersize=8
+)
+
+ax.set_title("Top 25 Artists With Highest Rise Probability (Not Top 100 Artists)")
+ax.set_xlabel("Rise Probability")
+ax.set_ylabel("Artist")
+ax.grid(axis='x', linestyle='--', alpha=0.7)
+
+plt.tight_layout()
+plt.show()</div>
+
+      <div class="code-block">from sklearn.metrics import ConfusionMatrixDisplay
+
+# Plot Confusion Matrix
+y_pred = predictions
+
+fig, ax = plt.subplots(figsize=(8, 6))
+ConfusionMatrixDisplay.from_predictions(
+    y_test,
+    y_pred,
+    cmap=plt.cm.Blues,
+    ax=ax
+)
+ax.set_title("Confusion Matrix for OnTheRise Prediction")
+plt.show()</div>
+
+      <div class="image-grid">
+        <div class="image-card">
+          <img
+            class="chart-image"
+            src="images/Top25RiseProbabilityDotPlot.png"
+            alt="Dot plot of top 25 artists with highest rise probability outside the Top 100"
+          />
+          <div class="image-caption">
+            <h4>Top 25 Artists by Rise Probability</h4>
+            <p>The dot plot ranks candidate artists outside the Top 100 by predicted rise probability, allowing closely grouped scores to be compared clearly.</p>
+          </div>
+        </div>
+
+        <div class="image-card">
+          <img
+            class="chart-image"
+            src="images/ConfusionMatrixOnTheRise.png"
+            alt="Confusion matrix for OnTheRise prediction showing true and predicted labels"
+          />
+          <div class="image-caption">
+            <h4>Confusion Matrix for OnTheRise Prediction</h4>
+            <p>The confusion matrix shows how often the model correctly identified artists as not on the rise or on the rise, along with the false positive and false negative counts.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusion">
+      <h2>Insights and Conclusions</h2>
+      <p>One of the biggest takeaways from this project is that popularity alone does not tell the full story. Some artists outside the Top 100 showed stronger momentum than artists who were already highly ranked. By combining several different features together, the model was able to capture growth patterns that would have been harder to notice from rankings alone.</p>
+
+      <p>The exploratory analysis found that Top 100 artists did not have a statistically significant advantage in daily trend compared to artists outside the Top 100. This insight supported the need for a machine learning model that could consider several variables at once instead of relying on rank alone.</p>
+
+      <p>Overall, the analysis provides a practical framework for identifying artists on the rise. A record label could use this type of model as an initial screening tool, then combine the results with qualitative information such as genre, fan engagement, social media growth, and marketability before making signing decisions.</p>
+    </section>
+  </main>
+</body>
+</html>
