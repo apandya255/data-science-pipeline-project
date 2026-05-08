@@ -62,12 +62,9 @@
     }
 
     section {
-      margin-bottom: 80px;
-      background: #fff;
-      padding: 34px;
-      border: 1px solid #ececec;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      margin-bottom: 72px;
+      padding-bottom: 52px;
+      border-bottom: 1px solid #ececec;
     }
 
     h2 {
@@ -88,7 +85,7 @@
       margin-top: 30px;
     }
 
-    .meta-card {
+    .meta-item {
       margin-bottom: 14px;
       color: #444;
     }
@@ -150,11 +147,8 @@
       margin-top: 24px;
     }
 
-    .image-card {
-      border: 1px solid #e5e5e5;
-      border-radius: 14px;
-      overflow: hidden;
-      background: white;
+    .figure-block {
+      margin: 0;
     }
 
     .chart-image {
@@ -162,7 +156,7 @@
       width: 100%;
       height: auto;
       background: #fff;
-      border-bottom: 1px solid #e5e5e5;
+      border: 1px solid #e5e5e5;
     }
 
     .notebook-output-image {
@@ -170,14 +164,14 @@
       width: 100%;
       height: auto;
       background: #242729;
-      border-bottom: 1px solid #e5e5e5;
+      border: 1px solid #3a3a3a;
     }
 
-    .image-caption {
-      padding: 16px;
+    .figure-caption {
+      padding-top: 10px;
     }
 
-    .image-caption h4 {
+    .figure-caption h4 {
       margin-top: 0;
       margin-bottom: 8px;
       font-size: 1rem;
@@ -312,15 +306,15 @@
     <p>A project exploring whether Spotify listener trends can help identify artists that may continue growing in popularity over time.</p>
 
     <div class="project-meta">
-      <div class="meta-card">
+      <div class="meta-item">
         <strong>Project Topic</strong>
         Spotify artist growth prediction
       </div>
-      <div class="meta-card">
+      <div class="meta-item">
         <strong>Dataset</strong>
         Spotify Top Artists by Monthly Listeners
       </div>
-      <div class="meta-card">
+      <div class="meta-item">
         <strong>Primary Question</strong>
         Which artists should a record label consider signing based on listener momentum and growth potential?
       </div>
@@ -394,18 +388,19 @@
 
     <section id="introduction">
       <h2>Introduction</h2>
-      <p>The music industry has been well established for decades. However, the industry continues to innovate and change each year. We see this with certain genres becoming more popular and breakout artists reaching new heights of popularity.</p>
+      <p>The music industry has been well established for decades. However, the industry continues to innovate and change each year. We see this as with certain genres becoming more popular or breakout artists reaching new heights of popularity.</p>
 
-      <p>Record labels are always trying to sign their next big artist in order to capitalize on the latest trends. The problem is that it is not easy to predict which artists are worth investing in. There are several risks involved, so labels are constantly looking for ways to make the process more efficient and data-driven.</p>
+      <p>Now, record labels are always trying to sign on their next big artists to capitalize on the latest trends. The problem is that it isn’t easy to pick artists to sign and bet on. There’s several risks involved and record labels want to make the process more efficient.</p>
 
-      <p>For this project, we decided to train a machine learning model using Spotify listener data to predict and rank which upcoming artists have the highest potential for future growth and sustained engagement. This type of analysis allows record labels to make more informed decisions about which artists may be worth signing.</p>
-
-      <p>Below is a walkthrough of the complete data science and machine learning pipeline we used to clean the data, explore trends, train our model, and evaluate the final results.</p>
+      <p>So, for this project we decided to train a machine learning model on existing artists' listener data to predict and rank which new upcoming artists have the highest potential for future growth and sustained engagement. This data driven solution will allow record labels to make informed decisions about which artists are worth signing. Below is a complete machine learning pipeline tutorial of how we analyzed the data and trained our model for the task.</p>
     </section>
 
     <section id="data-curation">
-      <h2>Data Curation</h2>
-      <p>The dataset used in this project is the <strong>Spotify Top Artists by Monthly Listeners</strong> dataset from Kaggle. It contains artist-level Spotify popularity data, including current listeners, daily trend, current rank, peak rank, and peak listeners.</p>
+      <h2>Data Collection and Processing</h2>
+      <p>In this section, we will go over the details of our chosen dataset and transform our data into a data frame.</p>
+
+      <h3>Our Dataset</h3>
+      <p>For this project, we chose to use the Spotify Top Artists by Monthly Listeners dataset found on Kaggle, an online platform and community for data science and machine learning. This dataset provides a comprehensive collection of data and provides valuable insights into the artists dominating the music industry on Spotify, one of the world’s leading music streaming platforms. It was compiled by Meer Atif Magsi three years ago.</p>
 
       <p>Dataset source: <a href="https://www.kaggle.com/datasets/meeratif/spotify-top-artists-by-monthly-listeners" target="_blank">Kaggle: Spotify Top Artists by Monthly Listeners</a></p>
 
@@ -413,8 +408,22 @@
         <strong>Main columns:</strong> Artist, Listeners, Daily Trend, Current Rank, Peak, and PkListeners.
       </div>
 
-      <h3>Cleaning and Preprocessing Steps</h3>
-      <p>Before analysis, the dataset required cleaning. Several columns were stored as strings because they included commas and plus signs, so those characters had to be removed before converting the values into numbers. We also removed duplicates, missing values, and invalid sentinel entries that clearly did not represent real listener counts. Once the dataset was cleaned, it was sorted by current rank so the artists were straightforward to compare.</p>
+      <h3>Data Preprocessing</h3>
+      <p>For data preprocessing, will be using Pandas, a Python library that is used to clean, analyze, or manipulate data. In our case, we will be using it to explore and understand the dataset.</p>
+
+      <p>The dataset has 2504 entries and 5 columns. The columns are Artist, Listeners, Daily Trend, Peak, and PkListeners (Peak Listeners).</p>
+
+      <p>Additional Information on Dataset Columns:</p>
+
+      <ul>
+        <li>Artist: Contains the names or unique identifiers of musical artists.</li>
+        <li>Listeners: The total number of listeners or fans for each artist.</li>
+        <li>Daily Trend: Contains data that reflects the daily trend or change in popularity of each artist.</li>
+        <li>Peak: Signifies the highest point of popularity or the peak level of engagement that an artist has achieved within a specific timeframe.</li>
+        <li>PkListeners (Peak Listeners): The total number of listeners an artist had at the peak of their popularity.</li>
+      </ul>
+
+      <p>To ensure data quality, we performed several preprocessing steps. First, we inspected the dataset structure, including its shape, column names, and data types. We then checked for duplicate entries and removed them to avoid redundancy.</p>
 
       <div class="section-note">
         The code below loads the dataset, cleans the numeric columns, removes invalid rows, and adds the Top 100 artist flag before displaying the dataframe head.
@@ -450,7 +459,7 @@ df["Top100Artists"] = df["Current Rank"] <= 100
 print(df.head())</div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <div class="dataframe-preview" aria-label="Initial dataframe head output">
             <table>
               <thead>
@@ -507,19 +516,19 @@ print(df.head())</div>
               </tbody>
             </table>
           </div>
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Initial Dataset Preview</h4>
             <p>The initial dataframe head shows the first five artists after loading and sorting the Spotify listener dataset.</p>
           </div>
         </div>
 
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="notebook-output-image"
             src="images/CleanedDataframeHead.png"
             alt="Cleaned dataframe head showing artist, listeners, daily trend, current rank, peak listeners, and Top100Artists columns"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Cleaned Dataset Preview</h4>
             <p>This dataframe head shows the cleaned numeric columns and the added Top100Artists flag used later in the analysis.</p>
           </div>
@@ -529,7 +538,7 @@ print(df.head())</div>
 
     <section id="eda">
       <h2>Exploratory Data Analysis</h2>
-      <p>The exploratory analysis focused on understanding how artist popularity relates to listener growth. We started by checking summary statistics, listener distributions, and outliers so that the later modeling steps would be grounded in the actual shape of the data. After that, we compared daily listener trends across artist groups and rankings.</p>
+      <p>In this section, we will go over our data performing a data cleaning, parsing the data, organizing the data, querying the data, and visualizing the data.</p>
 
       <h3>Summary Statistics</h3>
       <p>Before answering the main questions, we used summary statistics to understand the spread of listener counts, daily trends, current ranks, and peak listener counts in the cleaned dataset. The cleaned dataset contains 1,817 artists. Listener counts range from about 4.27 million to 107.59 million, while daily trend ranges from a loss of 440,555 listeners to a gain of 743,072 listeners.</p>
@@ -544,71 +553,75 @@ print(df.head())</div>
 print(df[summary_cols].describe())</div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="notebook-output-image"
             src="images/SummaryStatistics.png"
             alt="Summary statistics table for listeners, daily trend, current rank, and peak listeners"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Summary Statistics</h4>
             <p>The summary statistics give a quick overview of listener counts, daily trend values, current ranks, and peak listener counts across the cleaned dataset.</p>
           </div>
         </div>
       </div>
 
-      <h3>Listener Distribution and Outliers</h3>
-      <p>The listener-count distribution is important for the data science pipeline because very large artists can dominate raw listener totals. The histogram shows that most artists are concentrated below roughly 25 million listeners, while the boxplot highlights many high-listener outliers above the upper whisker. This supported using normalized features later, such as momentum and trend rate, instead of relying only on total listener size.</p>
+      <h3>Question 1: Do listener counts follow a normal distribution, or are they significantly skewed toward higher values?</h3>
 
       <div class="section-note">
-        This code converts listener counts into millions, then uses a histogram and boxplot to show the overall distribution and outliers.
+        This code converts listener counts into millions and creates a histogram to show the overall distribution.
       </div>
 
-      <div class="code-block">listeners_millions = df["Listeners"] / 1000000
-
-plt.figure()
-plt.hist(listeners_millions)
+      <div class="code-block">plt.figure()
+plt.hist(df["Listeners"] // 1000000, bins=5)
+plt.title("Distribution of Listeners")
 plt.xlabel("Listeners in Millions")
 plt.ylabel("Frequency")
-plt.title("Distribution of Listeners")
-plt.show()
-
-plt.figure()
-plt.boxplot(listeners_millions)
-plt.ylabel("Listeners in Millions")
-plt.title("Distribution of Listeners")
 plt.show()</div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="chart-image"
             src="images/DistributionOfListenersHistogram.png"
             alt="Histogram showing the distribution of Spotify monthly listeners in millions"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Distribution of Listeners</h4>
-            <p>Most artists are clustered at lower listener totals, showing that the dataset is strongly right-skewed.</p>
+            <p>Conclusion: The histogram shows that listener counts are heavily right-skewed, which means that most observations have relatively low listener numbers, while a small number of observations have very high listener counts. The mean number of listeners is significantly higher than the median, which confirms the presence of a right-skewed distribution.</p>
           </div>
         </div>
       </div>
 
+      <h3>Question 2: Do listener counts contain significant outliers compared to the rest of the dataset at the 5% significance level?</h3>
+
+      <div class="section-note">
+        This code creates a boxplot to show listener-count spread and high-listener outliers.
+      </div>
+
+      <div class="code-block">fig, ax = plt.subplots()
+ax.boxplot((df["Listeners"] // 1000000).values)
+plt.title("Distribution of Listeners")
+plt.ylabel("Listeners in Millions")
+plt.show()</div>
+
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="chart-image"
             src="images/DistributionOfListenersBoxplot.png"
             alt="Boxplot showing listener-count spread and high-listener outliers"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Listener Count Outliers</h4>
-            <p>The boxplot makes the high-listener outliers clear, which helps explain why normalized growth metrics are needed in later analysis.</p>
+            <p>Conclusion: The boxplot also has many high outliers, showing that several observations have listener counts far above the typical range. The interquartile range of listener counts is about 6.5 million (with Q1 around 5.4 million and Q3 around 11.9 million), which shows that the middle 50% of the data is pretty spread out. This means there is a lot of variation in listener counts across the dataset which matches what we have been seeing in the histogram and mean and median.</p>
           </div>
         </div>
       </div>
 
-      <h3>Question 1: Top 100 vs Non-Top 100 Daily Trend</h3>
-      <p>We tested whether Top 100 artists had a significantly different mean daily trend from non-Top 100 artists. The p-value was greater than 0.05, so we failed to reject the null hypothesis. This means that being in the Top 100 does not necessarily mean an artist has a significantly higher daily trend.</p>
+      <h3>Question 3: Do the top 100 artists in current rank have higher daily trends in comparison to everyone else? 5% significance level</h3>
+      <p>Null Hypothesis H0: The mean daily trends are the same for the Top 100 current artists and those not in this category.</p>
+      <p>Alternative Hypothesis HA: The mean daily trends is different for the Top 100 current artists and those not in this category.</p>
 
       <div class="section-note">
         This code compares listener growth between Top 100 and non-Top 100 artists, then creates the matching boxplot and t-test output.
@@ -644,13 +657,13 @@ print("t-statistic:", stat)
 print("p-value:", p)</div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="chart-image"
             src="images/DailyTrendDistArtistGroup.png"
             alt="Boxplot showing the daily trend distribution for Top 100 and non-Top 100 artist groups"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Daily Trend Distribution by Artist Group</h4>
             <p>The boxplot compares Top 100 artists with artists outside the Top 100 and shows that both groups include a wide range of positive and negative daily trend values.</p>
           </div>
@@ -658,21 +671,20 @@ print("p-value:", p)</div>
       </div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="notebook-output-image"
             src="images/HypothesisTestResults.png"
             alt="Hypothesis test output showing mean daily trend, difference, t-statistic, and p-value"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Hypothesis Test Results</h4>
-            <p>The t-test output shows a p-value of 0.104537, so the difference in mean daily trend was not statistically significant at the 0.05 level.</p>
+            <p>Conclusion: Given our p-val of 0.104537 is greater than .05 signficance, there is no statistically signficant difference in Daily Trends and thus we fail to reject the null hypothesis. As a result, the mean daily trends are the same for the Top 100 current artists and those not in this category.</p>
           </div>
         </div>
       </div>
 
-      <h3>Question 2: Momentum vs Artist Size</h3>
-      <p>For the second question, we examined whether artist size impacts momentum. Momentum was calculated by dividing Daily Trend by total listeners. This normalized growth and made artists of different sizes more comparable.</p>
+      <h3>Question 4: Does a higher artist size lead to a lower momentum (daily trend/number of listeners)</h3>
 
       <div class="section-note">
         This code calculates momentum and creates the matching scatterplot showing how normalized daily growth changes with artist size.
@@ -690,21 +702,20 @@ plt.axhline(0)
 plt.show()</div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="chart-image"
             src="images/MomentumversusArtistSize.png"
             alt="Scatter plot of artist momentum against listeners in millions"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Momentum vs Artist Size</h4>
-            <p>The scatterplot shows that smaller artists tend to have more variation in momentum, while larger artists cluster closer to zero after daily trend is normalized by listener count.</p>
+            <p>Conclusion: From the scatterplot we see that the question posed held true where there is very low variance for artists with extremly high popularity. Additionally, we see here that artists with lower size have much higher variance in their momentum. This is a key metric to consider when it comes to the stability of different artists.</p>
           </div>
         </div>
       </div>
 
-      <h3>Question 3: Average Daily Trend by Current Rank</h3>
-      <p>The third question focused on how daily trend changes across the current Top 100 artist rankings. We grouped artists by rank and compared the average daily trend at each position.</p>
+      <h3>Question 5: Do higher artist rankings lead to higher daily listener trends?</h3>
 
       <div class="section-note">
         This code groups the Top 100 artists by current rank and creates the matching bar chart of average daily trend by rank.
@@ -730,15 +741,15 @@ plt.axhline(0, color="red", linestyle="--")
 plt.show()</div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="chart-image"
             src="images/AverageDailyTrendByCurrentRank.png"
             alt="Bar chart showing average daily trend by current rank among the Top 100 artists"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Average Daily Trend by Current Rank</h4>
-            <p>The bar chart shows that daily trend fluctuates across the Top 100 rankings, with several ranks gaining listeners while others are losing listeners relative to the zero baseline.</p>
+            <p>Conclusion: From  the bar chart above we noticed that higher artist rankings do not necessarily lead to higher daily trends. We noticed that artists at rank 1 actually experience a lower daily trend than many others. Additionally, we see that artists around rank 20 actually tend to have the highest daily trend on average meaning they are currently experiencing significantly more growth than other artists.</p>
           </div>
         </div>
       </div>
@@ -746,9 +757,9 @@ plt.show()</div>
 
     <section id="primary-analysis">
       <h2>Primary Analysis</h2>
-      <p>After exploring the data, it became clear that current popularity alone did not fully explain which artists were gaining momentum. Because of that, we used a supervised machine learning model to classify whether an artist could be considered “on the rise.”</p>
+      <p>For the primary analysis, we trained a Sequential Neural Network to predict whether an artist could be considered on the rise. This model allowed us to use multiple pieces of information at once instead of relying on current artist popularity alone.</p>
 
-      <p>The project engineered three important features: <strong>Trend_Rate</strong>, which measures daily growth relative to current listeners; <strong>Listener_Gap</strong>, which measures the gap between peak listeners and current listeners; and <strong>OnTheRise</strong>, the target variable that marks artists with positive daily trend, above-median trend rate, and room to grow.</p>
+      <p>To prepare the model, we engineered three important features: <strong>Trend_Rate</strong>, which measures daily growth relative to current listeners; <strong>Listener_Gap</strong>, which measures the gap between peak listeners and current listeners; and <strong>OnTheRise</strong>, the target variable that marks artists with positive daily trend, above-median trend rate, and room to grow.</p>
 
       <div class="section-note">
         This code creates the model features, trains the neural network, and prints the model accuracy.
@@ -819,20 +830,20 @@ predictions = (predictions > 0.5).astype(int)
 
 print("Accuracy:", accuracy_score(y_test, predictions))</div>
 
-      <div class="image-grid">
-        <div class="image-card">
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="figure-block">
           <img
             class="notebook-output-image"
             src="images/NeuralNetworkTraining.png"
             alt="Neural network training output showing epoch accuracy, loss, validation accuracy, and validation loss"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Neural Network Training</h4>
-            <p>The epoch output shows the neural network improving over training as loss decreases and validation accuracy increases.</p>
+            <p>The epoch output shows how the neural network trained over time, with loss decreasing and validation accuracy increasing as the model learned from the data.</p>
           </div>
         </div>
 
-        <div class="image-card">
+        <div class="figure-block">
           <div class="notebook-text-output">Accuracy: 0.9368131868131868
 
 Confusion Matrix:
@@ -848,15 +859,15 @@ Classification Report:
     accuracy                           0.94       364
    macro avg       0.94      0.92      0.93       364
 weighted avg       0.94      0.94      0.94       364</div>
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Model Accuracy</h4>
-            <p>The model reached about 93.7% accuracy on the test set, with strong precision and recall across both classes.</p>
+            <p>The model achieved about 93.7% accuracy on the test set, with strong precision and recall across both classes.</p>
           </div>
         </div>
       </div>
 
       <h3>Ranking Artists by Rise Probability</h3>
-      <p>After training the model, each artist was assigned a rise probability. Artists outside the Top 100 with a positive daily trend and a positive listener gap were ranked as possible signing candidates.</p>
+      <p>After training the model, each artist was assigned a rise probability. We then filtered for artists outside the Top 100 with a positive daily trend and a positive listener gap, creating a ranked list of possible signing candidates.</p>
 
       <div class="section-note">
         This code scores every artist with the trained model, sorts artists by rise probability, and filters the top signing candidates.
@@ -900,7 +911,7 @@ print(top_5_df[[
 ]].head())</div>
 
       <div class="image-grid" style="grid-template-columns: 1fr;">
-        <div class="image-card">
+        <div class="figure-block">
           <div class="dataframe-preview" aria-label="Highest rise probability artists neural network output">
             <table>
               <thead>
@@ -1098,13 +1109,13 @@ print(top_5_df[[
               </tbody>
             </table>
           </div>
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Highest Rise Probability Artists</h4>
             <p>This output lists the top 20 artists after sorting every artist by the neural network's predicted rise probability.</p>
           </div>
         </div>
 
-        <div class="image-card">
+        <div class="figure-block">
           <div class="dataframe-preview" aria-label="Top five artists to sign neural network output">
             <div class="dataframe-title">Top 5 Artists to Sign:</div>
             <table>
@@ -1168,7 +1179,7 @@ print(top_5_df[[
               </tbody>
             </table>
           </div>
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Top 5 Artists to Sign</h4>
             <p>The neural network ranked these artists highest after filtering for artists outside the Top 100 with positive daily trend and room to grow.</p>
           </div>
@@ -1220,26 +1231,26 @@ ConfusionMatrixDisplay.from_predictions(
 ax.set_title("Confusion Matrix for OnTheRise Prediction")
 plt.show()</div>
 
-      <div class="image-grid">
-        <div class="image-card">
+      <div class="image-grid" style="grid-template-columns: 1fr;">
+        <div class="figure-block">
           <img
             class="chart-image"
             src="images/Top25RiseProbabilityDotPlot.png"
             alt="Dot plot of top 25 artists with highest rise probability outside the Top 100"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Top 25 Artists by Rise Probability</h4>
             <p>The dot plot ranks candidate artists outside the Top 100 by predicted rise probability, allowing closely grouped scores to be compared clearly.</p>
           </div>
         </div>
 
-        <div class="image-card">
+        <div class="figure-block">
           <img
             class="chart-image"
             src="images/ConfusionMatrixOnTheRise.png"
             alt="Confusion matrix for OnTheRise prediction showing true and predicted labels"
           />
-          <div class="image-caption">
+          <div class="figure-caption">
             <h4>Confusion Matrix for OnTheRise Prediction</h4>
             <p>The confusion matrix shows how often the model correctly identified artists as not on the rise or on the rise, along with the false positive and false negative counts.</p>
           </div>
@@ -1248,12 +1259,14 @@ plt.show()</div>
     </section>
 
     <section id="conclusion">
-      <h2>Insights and Conclusions</h2>
-      <p>One of the biggest takeaways from this project is that popularity alone does not tell the full story. Some artists outside the Top 100 showed stronger momentum than artists who were already highly ranked. By combining several different features together, the model was able to capture growth patterns that would have been harder to notice from rankings alone.</p>
+      <h2>Conclusion</h2>
+      <p>Based on our observations, we concluded the following:</p>
 
-      <p>The exploratory analysis found that Top 100 artists did not have a statistically significant advantage in daily trend compared to artists outside the Top 100. This insight supported the need for a machine learning model that could consider several variables at once instead of relying on rank alone.</p>
+      <p>Current artist popularity alone cannot fully explain which artists were gaining momentum.</p>
 
-      <p>Overall, the analysis provides a practical framework for identifying artists on the rise. A record label could use this type of model as an initial screening tool, then combine the results with qualitative information such as genre, fan engagement, social media growth, and marketability before making signing decisions.</p>
+      <p>Using multiple features such as trend rate, listener gap, and on-the-rise probability, we trained a model to rank possible signing candidates outside the top 100. The model achieved about 93.7% accuracy on the test set, with strong precision and recall.</p>
+
+      <p>Overall, while our record label holders cannot conclude that certain individual features directly explain artists' growth, they can still use our machine learning model to reasonably predict upcoming artists. This machine learning solution can increase efficiency when it comes to choosing these artists, saving record labels time and resources.</p>
     </section>
   </main>
 </body>
